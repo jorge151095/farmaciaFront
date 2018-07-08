@@ -7,37 +7,24 @@ import { Http, Headers } from '@angular/http';
 })
 export class AppService {
 
+  URLBase: string = 'https://farmaciasdapp.azurewebsites.net/api';
+
   constructor(private _http: HttpClient, private _httpS: Http) {
-    console.log('service ready');
   }
 
-  getQuery() {
+  getAll(nameService) {
     const headers = new HttpHeaders({
       'Content-Type' : 'application/json'
     });
-    return this._http.get('http://localhost:49309/api/Stores', { headers } );
+    return this._http.get(`${this.URLBase}/${nameService}`, { headers } );
   }
 
 
-  postQuery() {
-    const body = {
-      'Type': 'string',
-      'Name': 'string',
-      'Number': 0,
-      'RFC': 'string',
-      'Regimen': 'string',
-      'StreetAddress': 'string',
-      'City': 'string',
-      'State': 'string',
-      'PostalCode': 'string',
-      'Country': 'string',
-      'Manager': 'string',
-      'Phone': 'string',
-      'Email': 'string'
-    };
+  postQuery(nameService, body) {
+    body = JSON.stringify(body);
     const headers = new Headers({
       'Content-Type' : 'application/json'
     });
-    return this._httpS.post('http://localhost:49309/api/Stores', body, { headers } );
+    return this._httpS.post(`${this.URLBase}/${nameService}`, body, { headers } );
   }
 }
