@@ -1,3 +1,94 @@
-<p>
-  products works!
-</p>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form #form="ngForm">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Código de Barras</label>
+                    <input type="text" class="form-control" placeholder="código de barras" name="codeB" #codeB="ngModel" [(ngModel)]="code" (keyup.enter)="search()" required>
+                    <div *ngIf=" codeB[ 'errors']?.required && codeB.touched " class="invalid ">
+                        Ingresar código de barras</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form #formProduct="ngForm">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" placeholder="Nombre" name="_nameProduct" #nameProduct="ngModel" [(ngModel)]="product['Name']" required>
+                    <div *ngIf="nameProduct['errors']?.required && nameProduct.touched" class="invalid">
+                        Ingresa el nombre del producto</div>
+                </div>
+                <div class="form-group col-md-8">
+                    <label>Descripción</label>
+                    <input type="text" class="form-control" placeholder="Descripción" name="_description" [(ngModel)]="product['Description']">
+                </div>
+                <div class="form-group col-md-2">
+                    <p>
+                        Presentación
+                    </p>
+                    <select class="form-control custom-select" required>
+                      <option *ngFor="let type of unitTypes" [value]="type">{{type}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Formulas</label>
+                    <input type="text" class="form-control" placeholder="Formulas" name="_formula" [(ngModel)]="product['Formulas']">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Laboratorio</label>
+                    <input type="text" class="form-control" placeholder="Laboratorio" name="_laboratory" [(ngModel)]="product['Laboratory']">
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Precio de compra</label>
+                    <input type="number" class="form-control" placeholder="precio de compra" name="_SellPrice" [(ngModel)]="product['SellPrice']">
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Precio de venta</label>
+                    <input type="number" class="form-control" placeholder="precio de venta" name="_BuyPrice" #BuyPrice="ngModel" [(ngModel)]="product['BuyPrice']" required>
+                    <div *ngIf="BuyPrice['errors']?.required && BuyPrice.touched" class="invalid">
+                        Ingresa el precio de venta</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Precio público</label>
+                    <input type="number" class="form-control" placeholder="precio público" name="_PublicPrice" #PublicPrice="ngModel" [(ngModel)]="product['PublicPrice']" required>
+                    <div *ngIf="PublicPrice['errors']?.required && PublicPrice.touched" class="invalid">
+                        Ingresa el precio público</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>IVA</label>
+                    <input type="number" class="form-control" placeholder="IVA" name="_IVA" [(ngModel)]="product['IVA']">
+                </div>
+                <div class="form-group col-md-2">
+                    <label>% Descuento</label>
+                    <input type="number" class="form-control" placeholder="% Descuento" name="_DiscountPercent" [(ngModel)]="product['DiscountPercent']">
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Descuento</label>
+                    <input type="number" class="form-control" placeholder="Descuento" name="_Discount" [(ngModel)]="product['Discount']" disabled>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>% Promoción</label>
+                    <input type="number" class="form-control" placeholder="% Promoción" name="_PromotionPercent" [(ngModel)]="product['PromotionPercent']">
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Promoción</label>
+                    <input type="number" class="form-control" placeholder="Promoción" name="_Promotion" [(ngModel)]="product['Promotion']" disabled>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>IEPS</label>
+                    <input type="number" class="form-control" placeholder="IEPS" name="_IEPS" [(ngModel)]="product['IEPS']">
+                </div>
+                <div class="form-group col-md-2">
+                    <img src="assets/img/image-add-button.png" width="35" height="35" class="d-inline-block" style="position:absolute; bottom: 0;" alt="">
+                </div>
+
+            </div>
+            <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>

@@ -1,3 +1,54 @@
-<p>
-  store-house works!
-</p>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form (ngSubmit)="save()" #form="ngForm">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Farmacia</label>
+                    <select class="form-control custom-select" name="select" #select="ngModel" [(ngModel)]="valueSelected" required>
+                      <option *ngFor="let store of stores" [value]="store['Id']">{{store['Name']}}-{{store['Type']}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Código de Barras</label>
+                    <input type="text" class="form-control" placeholder="código de barras" name="codeB" #codeB="ngModel" [(ngModel)]="code" required>
+                    <div *ngIf="codeB['errors']?.required && codeB.touched" class="invalid" (keyup.enter)="save()">
+                        Ingresar código de barras</div>
+                </div>
+                <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row" *ngIf="products.length > 0">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form (ngSubmit)="save()" #form="ngForm">
+            <div class="form-row">
+                <p>
+                    Articulos Actuales: {{stock}}
+                </p>
+                <select class="form-control custom-select" name="selectVendor" (change)="onChangeVendor($event)" required>
+            <option *ngFor="let product of products" [value]="product.Id">{{product['Vendor'].Name}}</option>
+        </select>
+                <div class="form-group col-md-12">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" placeholder="Nombre" name="nameProduct" #nameProduct="ngModel" [(ngModel)]="product['Name']" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Unidades</label>
+                    <input type="number" class="form-control" placeholder="unidades" name="unitiesProduct" #unitiesProduct="ngModel" [(ngModel)]="unitiesProductM" required>
+                    <div *ngIf="unitiesProduct['errors']?.required && unitiesProduct.touched" class="invalid">
+                        Ingresa la cantidad de unidades</div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Precio de Compra</label>
+                    <input type="number" class="form-control" placeholder="código de barras" name="priceBuyProduct" #priceBuyProduct="ngModel" [(ngModel)]="priceBuyProductM" required>
+                    <div *ngIf="priceBuyProduct['errors']?.required && priceBuyProduct.touched" class="invalid">
+                        Ingresar precio de compra</div>
+                </div>
+                <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Agregar a almacen</button>
+            </div>
+        </form>
+    </div>
+</div>

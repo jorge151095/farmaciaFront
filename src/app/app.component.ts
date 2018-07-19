@@ -9,11 +9,5 @@ import { AppService } from './services/app.service';
 
 export class AppComponent {
   constructor(private _appService: AppService) {
-    this._appService.getAll('stores')
-      .subscribe( (data: any ) => {
-          console.log(data);
-      });
   }
-  title = 'app';
-  stores = [];
 }
