@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // User  components
 import { AppComponent } from './app.component';
@@ -19,6 +20,9 @@ import { ROUTES } from './app.routes';
 // Forms
 import { FormsModule} from '@angular/forms';
 
+// Third Part
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +37,8 @@ import { FormsModule} from '@angular/forms';
     HttpClientModule,
     HttpModule,
     FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(), // ToastrModule added
     RouterModule.forRoot( ROUTES, { useHash: false} )
   ],
   providers: [],

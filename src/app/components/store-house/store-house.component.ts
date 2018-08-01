@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppService } from '../../services/app.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-store-house',
@@ -16,17 +17,18 @@ export class StoreHouseComponent {
   unitiesProductM = 0;
   priceBuyProductM = 0;
 
-  constructor(private _appService: AppService) {
+  constructor(private _appService: AppService, private _toastr: ToastrService) {
     // Get stores
     this._appService.getAll('stores')
       .subscribe( (data: any ) => {
         this.stores = data;
     }, (err: any) => {
-        console.log(err);
+      this._toastr.error('No se encontraron Farmacias', 'Error');
     });
   }
 
   save() {
+    this.product = {};
     // Get stock currents from db
     this._appService.getAll(`StockCurrents?code=${this.code}&storeId=${this.valueSelected}`)
       .subscribe( (data: any ) => {
@@ -36,28 +38,32 @@ export class StoreHouseComponent {
             this.stock = '0';
           }
       }, (error: any ) => {
-        console.log(error);
+        this._toastr.error('Cantidad no encontrada', 'Error');
     });
     // Get products depend code from db
     this._appService.getAll(`Products/${this.code}`)
       .subscribe( (data: any ) => {
         if (data !== null) {
-          this.products = data;
+          this.product = data;
         } else {
-          console.log('result null');
+          this._toastr.error('Producto nulo', 'Error');
         }
       }, (error: any ) => {
-        console.log(error);
+        this._toastr.error('Producto no encontrado', 'Error');
     });
   }
 
-  onChangeVendor(event) {
+  onChangeStore(event) {
+    this.product = {};
+  }
+
+  /*onChangeVendor(event) {
     // Update product to show
     for (const product of this.products) {
       if (product.Id == event.target.value) {
         this.product = product;
       }
     }
-  }
+  }*/
 
 }

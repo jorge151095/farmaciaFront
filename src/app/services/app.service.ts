@@ -19,6 +19,12 @@ export class AppService {
     return this._http.get(`${this.URLBase}/${nameService}`, { headers } );
   }
 
+  getById(nameService, id) {
+    const headers = new HttpHeaders({
+      'Content-Type' : 'application/json'
+    });
+    return this._http.get(`${this.URLBase}/${nameService}/${id}`, { headers } );
+  }
 
   postQuery(nameService, body) {
     body = JSON.stringify(body);

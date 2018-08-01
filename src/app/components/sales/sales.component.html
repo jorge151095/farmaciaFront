@@ -5,11 +5,11 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label>Código de Barras</label>
-                    <input type="text" class="form-control" placeholder="código de barras" name="codeB" #codeB="ngModel" [(ngModel)]="code" required>
-                    <div *ngIf="codeB['errors']?.required && codeB.touched" class="invalid" (keyup.enter)="add()">
+                    <input type="text" class="form-control" placeholder="código de barras" name="codeB" #codeB="ngModel" [(ngModel)]="code" (keyup.enter)="add()" required>
+                    <div *ngIf="codeB['errors']?.required && codeB.touched" class="invalid" >
                         Ingresar código de barras</div>
                 </div>
-                <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Agregar</button>
+                <button type="button" [disabled]="!form.valid" class="btn btn-primary" (click)="add()">Agregar</button>
             </div>
         </form>
     </div>
@@ -31,11 +31,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let article of shoppingCart; let index = index">
-                    <td>{{article.code}}</td>
-                    <td>{{article.name}}</td>
-                    <td>{{article.price}}</td>
-                    <td><input class="form-control" type="number" min="0" #quantity="ngModel" [(ngModel)]="article.quantity"></td>
-                    <td>{{article.price * article.quantity}}</td>
+                    <td>{{article.Code}}</td>
+                    <td>{{article.Name}}</td>
+                    <td>{{article.SellPrice}}</td>
+                    <td><input class="form-control" type="number" min="0" #quantity="ngModel" [(ngModel)]="article.Quantity" (ngModelChange)="getTotal()" ></td>
+                    <td>{{article.SellPrice * article.Quantity}}</td>
                     <td><img src="assets/img/delete.svg " width="28 " (click)="deleteOne(index) "></td>
                 </tr>
                 <tr>

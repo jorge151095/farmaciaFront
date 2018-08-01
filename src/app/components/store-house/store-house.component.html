@@ -5,7 +5,7 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label>Farmacia</label>
-                    <select class="form-control custom-select" name="select" #select="ngModel" [(ngModel)]="valueSelected" required>
+                    <select class="form-control custom-select" name="select" #select="ngModel" [(ngModel)]="valueSelected" (change)="onChangeStore($event)" required>
                       <option *ngFor="let store of stores" [value]="store['Id']">{{store['Name']}}-{{store['Type']}}</option>
                     </select>
                 </div>
@@ -20,17 +20,17 @@
         </form>
     </div>
 </div>
-<div class="row" *ngIf="products.length > 0">
+<div class="row" *ngIf="product.hasOwnProperty('Id')">
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <form (ngSubmit)="save()" #form="ngForm">
             <div class="form-row">
-                <p>
+                <h4>
                     Articulos Actuales: {{stock}}
-                </p>
-                <select class="form-control custom-select" name="selectVendor" (change)="onChangeVendor($event)" required>
-            <option *ngFor="let product of products" [value]="product.Id">{{product['Vendor'].Name}}</option>
-        </select>
+                </h4>
+                <!--<select class="form-control custom-select" name="selectVendor" (change)="onChangeVendor($event)" required>
+                    <option *ngFor="let product of products" [value]="product.Id">{{product['Vendor'].Name}}</option>
+                </select>-->
                 <div class="form-group col-md-12">
                     <label>Nombre</label>
                     <input type="text" class="form-control" placeholder="Nombre" name="nameProduct" #nameProduct="ngModel" [(ngModel)]="product['Name']" disabled>
